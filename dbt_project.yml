@@ -1,0 +1,33 @@
+name: 'shippo_test'
+version: '1.0'
+
+source-paths: ["models"]
+analysis-paths: ["analysis"]
+target-path: "target"
+clean-targets: ["target", "dbt_modules"]
+test-paths: ["test"]
+data-paths: ["data"]
+
+models:
+
+    shippo_test:
+        vars:
+            parcels_table: "shippo_chooze.parcels"
+            shipments_table: "shippo_chooze.shipments"
+            addresses_table: "shippo_chooze.addresses"
+
+    shopify:
+        vars:
+            checkouts_table:      "shippo_chooze_shopify.checkouts"
+            customers_table:      "shippo_chooze_shopify.customers"
+            orders_table:         "{{ref('shopify_orders_base')}}"
+            transactions_table:   "shippo_chooze_shopify.transactions"
+            products_table:       "shippo_chooze_shopify.products"
+            refunds_table:        "shippo_chooze_shopify.order_refunds"
+            discount_codes_table: "shippo_chooze_shopify.orders__discount_codes"
+            order_items_table:    "{{ref('shopify_order_items_base')}}"
+
+repositories:
+    - https://github.com/fishtown-analytics/shopify.git
+
+profile: shippo

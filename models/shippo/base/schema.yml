@@ -1,0 +1,35 @@
+shippo_parcels:
+    constraints:
+        unique:
+            - id
+        not_null:
+            - id
+            - state
+            - created_at
+
+shippo_shipments:
+    constraints:
+        unique:
+            - id
+        not_null:
+            - id
+            - state
+            - purpose
+            - status
+            - created_at
+        relationships:
+            - {from: parcel_id, to: ref('shippo_parcels'), field: id}
+            - {from: address_from_id, to: ref('shippo_addresses'), field: id}
+            - {from: address_return_id, to: ref('shippo_addresses'), field: id}
+            - {from: address_to_id, to: ref('shippo_addresses'), field: id}
+
+shippo_addresses:
+    constraints:
+        unique:
+            - id
+        not_null:
+            - id
+            - object_state
+            - purpose
+            - source
+            - created_at
